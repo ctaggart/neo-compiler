@@ -213,12 +213,9 @@ namespace Neo.Compiler.MSIL
                //ifjmp
                //throw
             //for
-               //call
-               //ret
-               //call
-               //ret
-               //call
-               //ret
+               //jmp
+               //jmp
+               //jmp
             foreach(var key in entries.Keys)
             {
                 _Convert1by1(VM.OpCode.DUP, null, main);
@@ -235,11 +232,10 @@ namespace Neo.Compiler.MSIL
                 this.addrconv[key] = callbegin.addr;
 
                 var name = entries[key];
-                var jmp= _Convert1by1(VM.OpCode.CALL, null, main,new byte[2]);
+                var jmp= _Convert1by1(VM.OpCode.JMP, null, main,new byte[2]);
                 jmp.needfixfunc = true;
                 jmp.srcfunc = name;
             }
-            _Convert1by1(VM.OpCode.RET, null, main);
 
             this.ConvertAddrInMethod(main);
 
